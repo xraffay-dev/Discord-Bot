@@ -1,10 +1,26 @@
-const {Client, GatewayIntentBits} = require('discord.js'); //?
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+//const { Client, GatewayIntentBits } = require("discord.js"); //?
+import { Client, GatewayIntentBits } from 'discord.js';
 
-client.on("messageCreate", (message)=>{
-    console.log(message.content);
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
+
+client.on("interactionCreate",(interaction)=>{
+    interaction.reply("Pong!!");
+})
+
+client.on("messageCreate", (message) => {
+    if (!message.author.bot) {
+      message.reply({
+        content: `Bot says ${message.content}`,
+      });
+    }
 });
 
 client.login(
-    "MTMwOTg3MzUzMDQ0NzU5NzU4OA.G8VLGG.PdumHEXB3RpZwabXHsmMgOknWyucWADcD7dkow"
+  "MTMwOTg3MzUzMDQ0NzU5NzU4OA.G8VLGG.PdumHEXB3RpZwabXHsmMgOknWyucWADcD7dkow"
 );
